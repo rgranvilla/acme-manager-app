@@ -1,61 +1,66 @@
 {
-    "env": {
-        "browser": true,
-        "es2021": true,
-        "jest": true
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "jest": true
+  },
+  "extends": [
+    "react-app",
+    "react-app/jest",
+    "plugin:react/recommended",
+    "airbnb",
+    "airbnb-typescript",
+    "plugin:import/typescript",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:prettier/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
     },
-    "extends": [
-        "react-app",
-        "react-app/jest",
-        "airbnb",
-        "airbnb-typescript",
-        "plugin:import/typescript",
-        "plugin:@typescript-eslint/recommended",
-        "plugin:@typescript-eslint/recommended-requiring-type-checking",
-        "plugin:prettier/recommended"
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "project": [
+      "./tsconfig.json"
+    ]
+  },
+  "plugins": [
+    "react",
+    "@typescript-eslint",
+    "prettier"
+  ],
+  "rules": {
+    "prettier/prettier": "error",
+    "quotes": [
+      "error",
+      "double",
+      {
+        "avoidEscape": true
+      }
     ],
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "ecmaVersion": "latest",
-        "sourceType": "module",
-        "project": [
-            "./tsconfig.json",
-            "./commitlint.config.js"
-        ]
-    },
-    "plugins": [
-        "react",
-        "@typescript-eslint",
-        "prettier"
+    "@typescript-eslint/quotes": [
+      "error",
+      "double",
+      {
+        "avoidEscape": true
+      }
     ],
-    "rules": {
-        "quotes": [
-            "error",
-            "double",
-            {
-                "avoidEscape": true
-            }
-        ],
-        "@typescript-eslint/quotes": [
-            "error",
-            "double",
-            {
-                "avoidEscape": true
-            }
-        ],
-        "import/prefer-default-export": "off",
-        "react/jsx-uses-react": [
-            "off"
-        ],
-        "react/react-in-jsx-scope": [
-            "off"
-        ],
-        "react/jsx-props-no-spreading": [
-            "warn"
-        ],
-        "no-shadow": "off"
-    }
+    "import/prefer-default-export": "off",
+    "react/jsx-uses-react": [
+      "off"
+    ],
+    "react/react-in-jsx-scope": [
+      "off"
+    ],
+    "react/jsx-props-no-spreading": [
+      "warn"
+    ],
+    "no-shadow": "off",
+    "react/require-default-props": [
+      "off"
+    ],
+    "@typescript-eslint/no-unused-vars": "off"
+  }
 }
