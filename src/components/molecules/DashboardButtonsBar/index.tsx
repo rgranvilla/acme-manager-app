@@ -8,11 +8,19 @@ import { Container } from "./dashboardButtonsBar.styles";
 export function DashboardButtonsBar() {
   return (
     <Container>
-      <DashboardButton image={add_profile} title="Adicionar" />
+      <DashboardButton
+        image={add_profile}
+        title="Adicionar"
+        link="/profiles/add"
+      />
 
-      <DashboardButton image={edit_profile} title="Editar" />
+      <DashboardButton
+        image={edit_profile}
+        title="Editar"
+        link="/profiles/edit"
+      />
 
-      <DashboardButton image={search_profile} title="Buscar" />
+      <DashboardButton image={search_profile} title="Buscar" link="/list" />
     </Container>
   );
 }
