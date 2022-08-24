@@ -4,6 +4,8 @@ export const Container = styled.div`
   height: 100%;
   width: 100%;
 
+  margin-left: 18rem;
+
   background: var(--bg_primary);
 `;
 
@@ -22,10 +24,7 @@ export const TablePreHeader = styled.div`
 
 export const TableBody = styled.div`
   display: flex;
-
-  height: calc(100% - 6rem);
-
-  background: #dddddd;
+  align-items: flex-start;
 `;
 
 export const TableFooter = styled.div`

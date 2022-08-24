@@ -8,6 +8,10 @@ import {
   TableFooter,
   TablePreHeader,
 } from "./listPatientDashboard.styles";
+import { Table } from "../Table";
+
+// dados para teste
+import { data, header } from "./dataMock";
 
 export function ListPatientDashboard() {
   return (
@@ -17,8 +21,9 @@ export function ListPatientDashboard() {
         <TablePreHeader>
           <SearchInput />
         </TablePreHeader>
-        <TableBody>Corpo</TableBody>
-        <TableFooter>Footer</TableFooter>
+        <TableBody>
+          <Table data={data} header={header} />
+        </TableBody>
       </TableContainer>
     </Container>
   );
