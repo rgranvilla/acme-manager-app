@@ -1,10 +1,14 @@
+import { Home } from "./pages/Home";
+import { ListPatient } from "./pages/ListPatient";
 import { GlobalStyle } from "./styles/global";
 
 export function App() {
+  const temporaryDevSelector = false;
   return (
-    <div className="App">
-      <h1>Hello InterProcess</h1>
+    <>
+      {temporaryDevSelector ? <Home /> : <ListPatient />}
+
       <GlobalStyle />
-    </div>
+    </>
   );
 }
