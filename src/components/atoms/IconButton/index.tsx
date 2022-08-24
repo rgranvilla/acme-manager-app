@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import { Container } from "./iconButton.styles";
 
 interface IconButtonProps {
@@ -5,6 +7,7 @@ interface IconButtonProps {
   title: string;
   leftIcon?: boolean;
   rightIcon?: boolean;
+  link: string;
 }
 
 export function IconButton({
@@ -12,12 +15,15 @@ export function IconButton({
   title,
   leftIcon,
   rightIcon,
+  link,
 }: IconButtonProps) {
   return (
-    <Container>
-      {leftIcon && <img src={icon} alt={title} />}
-      <p>{title}</p>
-      {rightIcon && <img src={icon} alt={title} />}
-    </Container>
+    <Link to={link}>
+      <Container>
+        {leftIcon && <img src={icon} alt={title} />}
+        <p>{title}</p>
+        {rightIcon && <img src={icon} alt={title} />}
+      </Container>
+    </Link>
   );
 }

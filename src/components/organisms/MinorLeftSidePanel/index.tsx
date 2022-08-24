@@ -20,11 +20,12 @@ export function MinorLeftSidePanel() {
         <Logomark image={logomark} title="Logomarca da clínica ACME." />
 
         <ButtonsContainer>
-          <IconButton icon={arrow_left} title="Início" leftIcon />
+          <IconButton icon={arrow_left} title="Início" leftIcon link="/" />
 
           <MenuButton
             image={add_profile}
             title="Adicionar paciente no sistema."
+            link="/profile/add"
           />
         </ButtonsContainer>
       </MenuContainer>
