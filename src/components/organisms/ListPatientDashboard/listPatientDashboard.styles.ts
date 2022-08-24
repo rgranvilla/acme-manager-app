@@ -10,7 +10,29 @@ export const Container = styled.div`
 export const TableContainer = styled.div`
   margin: 2rem;
   height: 68rem;
-  width: 126rem;
+  width: auto;
+`;
 
-  background: gray;
+export const TablePreHeader = styled.div`
+  display: flex;
+  justify-content: end;
+
+  height: 3rem;
+`;
+
+export const TableBody = styled.div`
+  display: flex;
+
+  height: calc(100% - 6rem);
+
+  background: #dddddd;
+`;
+
+export const TableFooter = styled.div`
+  display: flex;
+  justify-content: center;
+
+  height: 3rem;
+
+  background: #bcbcbc;
 `;
