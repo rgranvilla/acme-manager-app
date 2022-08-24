@@ -48,6 +48,10 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+a { 
+  text-decoration: none;
+}
+
 body, input, textarea, button {
   font-family: 'Inter', sans-serif;
   font-weight: 400;
