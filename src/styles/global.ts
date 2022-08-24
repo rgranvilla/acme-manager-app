@@ -3,7 +3,8 @@ import { createGlobalStyle } from "styled-components";
 export const GlobalStyle = createGlobalStyle`
 :root {
   --bg_primary: #FFFFFF;
-  --bg_secondary: #0DBBA2;
+  --bg_secondary: #ABE5DD;
+  --bg_button: #50B9EB;
 
   --border_active: #0EA089;
   --border_inactivated: #BCBCBC;
@@ -21,6 +22,8 @@ export const GlobalStyle = createGlobalStyle`
   --title_primary: #019DE6;
   
   --txt_primary: #404040;
+
+  --white: #FFFFFF;
 }
 
 * {
