@@ -20,13 +20,17 @@ export const Container = styled.button`
   box-shadow: 0.125rem 0.125rem 0.5rem rgba(0, 0, 0, 0.25);
 
   p {
-    margin-left: 1rem;
+    margin-left: 1.125rem;
     font-size: 1.5rem;
   }
 
-  img {
+  img:first-child {
+    margin-left: 0.125rem;
     height: 2rem;
-    object-fit: cover;
+  }
+  img:last-child {
+    margin-right: 0.125rem;
+    height: 2rem;
   }
 
   &:hover {

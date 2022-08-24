@@ -9,7 +9,7 @@ export function InexistentRoute() {
     <Container>
       <img src={erro404} alt="Página não encontrada" />
       <h1>Página Inexistente</h1>
-      <p>Você digitou um endereço que não existe em nossa aplicação.</p>
+      <p>O endereço web fornecido não existe em nossa aplicação.</p>
       <p>Clique no botão abaixo para voltar a página inicial.</p>
       <IconButton icon={arrow_left} title="Início" leftIcon link="/" />
     </Container>
