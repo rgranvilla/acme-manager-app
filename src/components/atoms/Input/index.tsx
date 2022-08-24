@@ -71,11 +71,6 @@ export function Input({
     }
   };
 
-  useEffect(() => {
-    // eslint-disable-next-line no-console
-    console.log("aqui", inputRef.current?.value);
-  }, [isFocused, isFilled]);
-
   return (
     <Container>
       {label && <label htmlFor={fieldName}>{label}</label>}
