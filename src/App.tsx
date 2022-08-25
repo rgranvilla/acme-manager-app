@@ -1,4 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AddProfile } from "./pages/AddProfile";
+import { EditProfile } from "./pages/EditProfile";
 
 import { Home } from "./pages/Home";
 import { InexistentPage } from "./pages/InexistentPage";
@@ -12,6 +14,8 @@ export function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/list" element={<ListPatient />} />
+        <Route path="/profile/add" element={<AddProfile />} />
+        <Route path="/profile/edit" element={<EditProfile />} />
         <Route path="*" element={<InexistentPage />} />
       </Routes>
 
