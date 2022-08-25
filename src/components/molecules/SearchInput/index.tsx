@@ -9,10 +9,9 @@ import { Input } from "../../atoms/Input";
 
 interface FormData {
   name: string;
-  email: string;
 }
 
-export function SearchInput() {
+export function SearchInput(): JSX.Element {
   const formRef = useRef<FormHandles>(null);
 
   const handleSubmit: SubmitHandler<FormData> = (data) => {
