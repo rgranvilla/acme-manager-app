@@ -5,6 +5,7 @@ export const GlobalStyle = createGlobalStyle`
   --bg_primary: #FFFFFF;
   --bg_secondary: #ABE5DD;
   --bg_button: #50B9EB;
+  --bg_disabled: #666666
 
   --border_active: #0EA089;
   --border_inactivated: #BCBCBC;
