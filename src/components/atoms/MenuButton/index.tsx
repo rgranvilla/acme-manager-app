@@ -1,20 +1,17 @@
 import { ButtonHTMLAttributes } from "react";
-import { Link } from "react-router-dom";
 
 import { Container } from "./menuButton.styles";
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   image: string;
   title: string;
-  link: string;
+  callback: () => void;
 };
 
-export function MenuButton({ image, title, link, ...rest }: ButtonProps) {
+export function MenuButton({ image, title, callback, ...rest }: ButtonProps) {
   return (
-    <Container>
-      <Link to={link}>
-        <img src={image} alt={title} />
-      </Link>
+    <Container onClick={callback}>
+      <img src={image} alt={title} />
     </Container>
   );
 }
