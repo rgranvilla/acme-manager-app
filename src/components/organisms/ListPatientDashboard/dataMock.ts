@@ -1,8 +1,9 @@
+import { v4 as uuidV4 } from "uuid";
 import { DataPropsDTO, HeaderPropsDTO } from "../Table/tableDTO";
 
 export const data: Array<DataPropsDTO> = [
   {
-    id: "89840868-4b70-40b4-be7f-ae21295c980c",
+    id: uuidV4(),
     name: "Ricardo Granvilla Oliveira",
     bornDate: "05/05/1981",
     document_id: "054.929.596-89",
@@ -11,7 +12,7 @@ export const data: Array<DataPropsDTO> = [
     status: true,
   },
   {
-    id: "b93b33af-ef0c-4180-bdd1-30b5df7e4271",
+    id: uuidV4(),
     name: "Ricardo Granvilla Oliveira",
     bornDate: "05/05/1981",
     document_id: "054.929.596-89",
@@ -20,7 +21,7 @@ export const data: Array<DataPropsDTO> = [
     status: false,
   },
   {
-    id: "a63091ea-e322-48b2-81ac-5663a25f4b2f",
+    id: uuidV4(),
     name: "Ricardo Granvilla Oliveira",
     bornDate: "05/05/1981",
     document_id: "054.929.596-89",
@@ -29,7 +30,7 @@ export const data: Array<DataPropsDTO> = [
     status: true,
   },
   {
-    id: "b93b33af-ef0c-4180-bdd1-30b5df7e4271",
+    id: uuidV4(),
     name: "Ricardo Granvilla Oliveira",
     bornDate: "05/05/1981",
     document_id: "054.929.596-89",
@@ -38,7 +39,7 @@ export const data: Array<DataPropsDTO> = [
     status: true,
   },
   {
-    id: "a63091ea-e322-48b2-81ac-5663a25f4b2f",
+    id: uuidV4(),
     name: "Ricardo Granvilla Oliveira",
     bornDate: "05/05/1981",
     document_id: "054.929.596-89",
@@ -47,7 +48,7 @@ export const data: Array<DataPropsDTO> = [
     status: false,
   },
   {
-    id: "b93b33af-ef0c-4180-bdd1-30b5df7e4271",
+    id: uuidV4(),
     name: "Ricardo Granvilla Oliveira",
     bornDate: "05/05/1981",
     document_id: "054.929.596-89",
@@ -56,7 +57,7 @@ export const data: Array<DataPropsDTO> = [
     status: false,
   },
   {
-    id: "a63091ea-e322-48b2-81ac-5663a25f4b2f",
+    id: uuidV4(),
     name: "Ricardo Granvilla Oliveira",
     bornDate: "05/05/1981",
     document_id: "054.929.596-89",
@@ -65,7 +66,7 @@ export const data: Array<DataPropsDTO> = [
     status: true,
   },
   {
-    id: "b93b33af-ef0c-4180-bdd1-30b5df7e4271",
+    id: uuidV4(),
     name: "Ricardo Granvilla Oliveira",
     bornDate: "05/05/1981",
     document_id: "054.929.596-89",
@@ -74,7 +75,7 @@ export const data: Array<DataPropsDTO> = [
     status: true,
   },
   {
-    id: "a63091ea-e322-48b2-81ac-5663a25f4b2f",
+    id: uuidV4(),
     name: "Ricardo Granvilla Oliveira",
     bornDate: "05/05/1981",
     document_id: "054.929.596-89",
@@ -83,7 +84,7 @@ export const data: Array<DataPropsDTO> = [
     status: true,
   },
   {
-    id: "b93b33af-ef0c-4180-bdd1-30b5df7e4271",
+    id: uuidV4(),
     name: "Ricardo Granvilla Oliveira",
     bornDate: "05/05/1981",
     document_id: "054.929.596-89",
@@ -92,7 +93,7 @@ export const data: Array<DataPropsDTO> = [
     status: true,
   },
   {
-    id: "a63091ea-e322-48b2-81ac-5663a25f4b2f",
+    id: uuidV4(),
     name: "Ricardo Granvilla Oliveira",
     bornDate: "05/05/1981",
     document_id: "054.929.596-89",
@@ -101,7 +102,7 @@ export const data: Array<DataPropsDTO> = [
     status: true,
   },
   {
-    id: "b93b33af-ef0c-4180-bdd1-30b5df7e4271",
+    id: uuidV4(),
     name: "Ricardo Granvilla Oliveira",
     bornDate: "05/05/1981",
     document_id: "054.929.596-89",
@@ -110,7 +111,7 @@ export const data: Array<DataPropsDTO> = [
     status: true,
   },
   {
-    id: "89840868-4b70-40b4-be7f-ae21295c980c",
+    id: uuidV4(),
     name: "Ricardo Granvilla Oliveira",
     bornDate: "05/05/1981",
     document_id: "054.929.596-89",
@@ -119,7 +120,7 @@ export const data: Array<DataPropsDTO> = [
     status: true,
   },
   {
-    id: "b93b33af-ef0c-4180-bdd1-30b5df7e4271",
+    id: uuidV4(),
     name: "Ricardo Granvilla Oliveira",
     bornDate: "05/05/1981",
     document_id: "054.929.596-89",
@@ -128,7 +129,7 @@ export const data: Array<DataPropsDTO> = [
     status: false,
   },
   {
-    id: "a63091ea-e322-48b2-81ac-5663a25f4b2f",
+    id: uuidV4(),
     name: "Ricardo Granvilla Oliveira",
     bornDate: "05/05/1981",
     document_id: "054.929.596-89",
@@ -137,7 +138,7 @@ export const data: Array<DataPropsDTO> = [
     status: true,
   },
   {
-    id: "a63091ea-e322-48b2-81ac-5663a25f4b2f",
+    id: uuidV4(),
     name: "Ricardo Granvilla Oliveira",
     bornDate: "05/05/1981",
     document_id: "054.929.596-89",
@@ -146,7 +147,7 @@ export const data: Array<DataPropsDTO> = [
     status: true,
   },
   {
-    id: "b93b33af-ef0c-4180-bdd1-30b5df7e4271",
+    id: uuidV4(),
     name: "Ricardo Granvilla Oliveira",
     bornDate: "05/05/1981",
     document_id: "054.929.596-89",
@@ -155,7 +156,7 @@ export const data: Array<DataPropsDTO> = [
     status: true,
   },
   {
-    id: "a63091ea-e322-48b2-81ac-5663a25f4b2f",
+    id: uuidV4(),
     name: "Ricardo Granvilla Oliveira",
     bornDate: "05/05/1981",
     document_id: "054.929.596-89",
@@ -164,7 +165,7 @@ export const data: Array<DataPropsDTO> = [
     status: true,
   },
   {
-    id: "b93b33af-ef0c-4180-bdd1-30b5df7e4271",
+    id: uuidV4(),
     name: "Ricardo Granvilla Oliveira",
     bornDate: "05/05/1981",
     document_id: "054.929.596-89",
@@ -173,7 +174,7 @@ export const data: Array<DataPropsDTO> = [
     status: true,
   },
   {
-    id: "a63091ea-e322-48b2-81ac-5663a25f4b2f",
+    id: uuidV4(),
     name: "Ricardo Granvilla Oliveira",
     bornDate: "05/05/1981",
     document_id: "054.929.596-89",
@@ -182,7 +183,7 @@ export const data: Array<DataPropsDTO> = [
     status: true,
   },
   {
-    id: "b93b33af-ef0c-4180-bdd1-30b5df7e4271",
+    id: uuidV4(),
     name: "Ricardo Granvilla Oliveira",
     bornDate: "05/05/1981",
     document_id: "054.929.596-89",
@@ -191,7 +192,7 @@ export const data: Array<DataPropsDTO> = [
     status: true,
   },
   {
-    id: "89840868-4b70-40b4-be7f-ae21295c980c",
+    id: uuidV4(),
     name: "Ricardo Granvilla Oliveira",
     bornDate: "05/05/1981",
     document_id: "054.929.596-89",
@@ -200,7 +201,7 @@ export const data: Array<DataPropsDTO> = [
     status: true,
   },
   {
-    id: "b93b33af-ef0c-4180-bdd1-30b5df7e4271",
+    id: uuidV4(),
     name: "Ricardo Granvilla Oliveira",
     bornDate: "05/05/1981",
     document_id: "054.929.596-89",
@@ -209,7 +210,7 @@ export const data: Array<DataPropsDTO> = [
     status: false,
   },
   {
-    id: "a63091ea-e322-48b2-81ac-5663a25f4b2f",
+    id: uuidV4(),
     name: "Ricardo Granvilla Oliveira",
     bornDate: "05/05/1981",
     document_id: "054.929.596-89",
