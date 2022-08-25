@@ -29,4 +29,10 @@ export const FormContainer = styled.div`
   justify-content: space-between;
   gap: 2rem;
   width: 100%;
+
+  div:last-child {
+    display: flex;
+    gap: 2rem;
+    justify-content: flex-end;
+  }
 `;

@@ -1,13 +1,17 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/unbound-method */
 /* eslint-disable no-console */
 /* eslint-disable react-hooks/rules-of-hooks */
-import { FormHandles, SubmitHandler, useField } from "@unform/core";
+import { FormHandles, SubmitHandler } from "@unform/core";
 import { Form as UnForm } from "@unform/web";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import * as Yup from "yup";
 
 import { v4 as uuidV4 } from "uuid";
 
+import { toast } from "react-toastify";
 import { Button } from "../../atoms/Button";
 import { Input } from "../../atoms/Input";
 import { Title } from "../../atoms/Title";
@@ -33,12 +37,12 @@ export function PatientForm({ title }: PatientFormProps) {
   const params = useParams();
   const patientId = params?.id;
 
-  const handleSubmit: SubmitHandler<FormData> = useCallback(() => {
-    formRef.current?.setErrors({});
-
+  async function handleSubmit(data: PatientDataDTO): Promise<void> {
     try {
-      const { name, bornDate, documentId, genre, address } =
-        formRef.current?.getData() as PatientDataDTO;
+      formRef.current?.setErrors({});
+
+      const formSubmitData = formRef.current?.getData() as PatientDataDTO;
+      const { name, bornDate, documentId, genre, address } = formSubmitData;
 
       const newData: PatientDataDTO = {
         id: uuidV4(),
@@ -50,15 +54,29 @@ export function PatientForm({ title }: PatientFormProps) {
         status: true,
       };
 
+      const schema = Yup.object().shape({
+        name: Yup.string().required(),
+        bornDate: Yup.date().required(),
+        documentId: Yup.string().required(),
+        genre: Yup.string().required(),
+        address: Yup.string().required(),
+      });
+
+      await schema.validate(formSubmitData, {
+        abortEarly: false,
+      });
+
       addPatient(newData);
 
       navigate("/list");
     } catch (err) {
-      console.log(err);
-    }
-  }, [addPatient, navigate]);
+      if (err instanceof Yup.ValidationError) {
+        toast.error(err.message);
 
-  const handleSetData = () => {};
+        console.log(err);
+      }
+    }
+  }
 
   useEffect(() => {
     let patient;
@@ -75,7 +93,7 @@ export function PatientForm({ title }: PatientFormProps) {
     <Container>
       <Title>{title}</Title>
       <HorizontalDivider />
-      <UnForm ref={formRef} onSubmit={handleSubmit}>
+      <UnForm ref={formRef} onSubmit={(data) => handleSubmit(data)}>
         <FormContainer>
           <RowContainer>
             <Input
