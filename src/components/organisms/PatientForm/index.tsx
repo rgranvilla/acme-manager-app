@@ -71,8 +71,6 @@ export function PatientForm({ title }: PatientFormProps) {
       navigate("/list");
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
-        toast.error(err.message);
-
         console.log(err);
       }
     }

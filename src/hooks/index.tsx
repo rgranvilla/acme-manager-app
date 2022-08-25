@@ -1,5 +1,4 @@
 import { PropsWithChildren } from "react";
-import { ToastContainer, toast } from "react-toastify";
 
 import { PatientsProvider } from "./patients";
 
