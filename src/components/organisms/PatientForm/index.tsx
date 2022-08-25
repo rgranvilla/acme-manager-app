@@ -1,14 +1,18 @@
+/* eslint-disable @typescript-eslint/unbound-method */
 /* eslint-disable no-console */
 /* eslint-disable react-hooks/rules-of-hooks */
-import { useRef } from "react";
-import { SubmitHandler, FormHandles } from "@unform/core";
-
+import { FormHandles, SubmitHandler, useField } from "@unform/core";
 import { Form as UnForm } from "@unform/web";
-import { useNavigate } from "react-router-dom";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+
+import { v4 as uuidV4 } from "uuid";
+
 import { Button } from "../../atoms/Button";
 import { Input } from "../../atoms/Input";
 import { Title } from "../../atoms/Title";
 
+import { PatientDataDTO, usePatients } from "../../../hooks/patients";
 import {
   Container,
   FormContainer,
@@ -20,18 +24,52 @@ interface PatientFormProps {
   title: string;
 }
 
-interface FormData {
-  name: string;
-}
-
 export function PatientForm({ title }: PatientFormProps) {
   const formRef = useRef<FormHandles>(null);
 
-  const navigate = useNavigate();
+  const { addPatient, getPatientById } = usePatients();
 
-  const handleSubmit: SubmitHandler<FormData> = (data) => {
-    console.log("saved");
-  };
+  const navigate = useNavigate();
+  const params = useParams();
+  const patientId = params?.id;
+
+  const handleSubmit: SubmitHandler<FormData> = useCallback(() => {
+    formRef.current?.setErrors({});
+
+    try {
+      const { name, bornDate, documentId, genre, address } =
+        formRef.current?.getData() as PatientDataDTO;
+
+      const newData: PatientDataDTO = {
+        id: uuidV4(),
+        name,
+        bornDate,
+        documentId,
+        genre,
+        address,
+        status: true,
+      };
+
+      addPatient(newData);
+
+      navigate("/list");
+    } catch (err) {
+      console.log(err);
+    }
+  }, [addPatient, navigate]);
+
+  const handleSetData = () => {};
+
+  useEffect(() => {
+    let patient;
+    if (patientId) {
+      patient = getPatientById(patientId);
+    }
+
+    if (patient) {
+      formRef.current?.setData(patient);
+    }
+  }, [getPatientById, params.id, patientId]);
 
   return (
     <Container>
@@ -61,15 +99,12 @@ export function PatientForm({ title }: PatientFormProps) {
 
           <Input name="address" label="Endereço" fullWidth />
           <HorizontalDivider />
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "flex-end",
-              gap: "2rem",
-              width: "100%",
-            }}
-          >
-            <Button type="submit" label="Salvar" />
+          <div>
+            <Button
+              type="submit"
+              label="Salvar"
+              onClick={() => formRef.current?.submitForm()}
+            />
             <Button
               type="button"
               label="Cancelar"
