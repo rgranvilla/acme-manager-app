@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 import { MdKeyboardArrowRight } from "react-icons/md";
 
 import { useNavigate } from "react-router-dom";
@@ -33,41 +34,62 @@ export function Table({ data, header }: TablePropsDTO) {
         </tr>
       </THEAD>
       <tbody>
-        {data.map(
-          ({ id, name, bornDate, document_id, genre, address, status }) => {
-            const path = `/profile/edit/${id}`;
-            return (
-              <TR key={id} isInactivated={!status}>
-                <TD vert_Align="middle">
-                  <button
-                    type="button"
-                    onClick={() => handleSelectPatient(path)}
-                  >
-                    <MdKeyboardArrowRight size={24} />
-                  </button>
-                </TD>
-                <TD vert_Align="middle" hor_Align="left" isBolded>
-                  {name}
-                </TD>
-                <TD vert_Align="middle" hor_Align="center">
-                  {bornDate}
-                </TD>
-                <TD vert_Align="middle" hor_Align="center">
-                  {document_id}
-                </TD>
-                <TD vert_Align="middle" hor_Align="center">
-                  {genre}
-                </TD>
-                <TD vert_Align="middle" hor_Align="left">
-                  {address}
-                </TD>
-                <TD vert_Align="middle" hor_Align="center">
-                  {status ? "Ativo" : "Inativo"}
-                </TD>
-              </TR>
-            );
-          },
-        )}
+        {!!data &&
+          data.map(
+            ({ id, name, bornDate, documentId, genre, address, status }) =>
+              id ? (
+                <TR key={id} isInactivated={!status}>
+                  <TD vert_Align="middle">
+                    <button
+                      type="button"
+                      onClick={() => handleSelectPatient(`/profile/edit/${id}`)}
+                    >
+                      <MdKeyboardArrowRight size={24} />
+                    </button>
+                  </TD>
+                  <TD vert_Align="middle" hor_Align="left" isBolded>
+                    {name}
+                  </TD>
+                  <TD vert_Align="middle" hor_Align="center">
+                    {bornDate}
+                  </TD>
+                  <TD vert_Align="middle" hor_Align="center">
+                    {documentId}
+                  </TD>
+                  <TD vert_Align="middle" hor_Align="center">
+                    {genre}
+                  </TD>
+                  <TD vert_Align="middle" hor_Align="left">
+                    {address}
+                  </TD>
+                  <TD vert_Align="middle" hor_Align="center">
+                    {status ? "Ativo" : "Inativo"}
+                  </TD>
+                </TR>
+              ) : (
+                <TR key={id} isInactivated={!status}>
+                  <TD vert_Align="middle" />
+                  <TD vert_Align="middle" hor_Align="left" isBolded>
+                    {name}
+                  </TD>
+                  <TD vert_Align="middle" hor_Align="center">
+                    {bornDate}
+                  </TD>
+                  <TD vert_Align="middle" hor_Align="center">
+                    {documentId}
+                  </TD>
+                  <TD vert_Align="middle" hor_Align="center">
+                    {genre}
+                  </TD>
+                  <TD vert_Align="middle" hor_Align="left">
+                    {address}
+                  </TD>
+                  <TD vert_Align="middle" hor_Align="center">
+                    {status ? "Ativo" : "Inativo"}
+                  </TD>
+                </TR>
+              ),
+          )}
       </tbody>
     </TABLE>
   );

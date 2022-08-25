@@ -1,12 +1,4 @@
-export interface DataPropsDTO {
-  id: string;
-  name: string;
-  bornDate: string;
-  document_id: string;
-  genre: "masculino" | "feminino";
-  address: string;
-  status: boolean;
-}
+import { PatientDataDTO } from "../../../hooks/patients";
 
 export interface ColumnsPropsDTO {
   id: string;
@@ -23,6 +15,6 @@ export interface HeaderPropsDTO {
 }
 
 export interface TablePropsDTO {
-  data: Array<DataPropsDTO>;
+  data: PatientDataDTO[] | null;
   header: HeaderPropsDTO;
 }
