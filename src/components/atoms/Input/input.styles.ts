@@ -1,10 +1,15 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 import styled, { css } from "styled-components";
 
-interface ContainerProps {
+interface Props {
   isFocused: boolean;
   isFilled: boolean;
   isErrored: boolean;
+  hasIcon: boolean;
+  fullWidth: boolean;
+}
+
+interface IconInputProps {
   hasIcon: boolean;
 }
 
@@ -12,19 +17,24 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
 
+  position: relative;
+
   label {
-    padding-right: 1rem;
+    position: absolute;
+    left: 0;
   }
 `;
 
-export const InputContainer = styled.div<ContainerProps>`
+export const InputContainer = styled.div<Props>`
   display: flex;
   align-items: center;
 
   background: var(--bg_primary);
 
-  height: 2rem;
-  width: 15rem;
+  height: 2.5rem;
+  width: 18vw;
+
+  margin-left: 6rem;
 
   border: 0.2rem solid var(--border_primary);
   border-radius: 0.3125rem;
@@ -35,6 +45,8 @@ export const InputContainer = styled.div<ContainerProps>`
 
   input {
     padding-left: 1rem;
+    height: 80%;
+    width: 100%;
     border: 0;
     background: none;
   }
@@ -86,18 +98,24 @@ export const InputContainer = styled.div<ContainerProps>`
         color: var(--border_primary);
       }
     `}
+
+    ${(props) =>
+    props.fullWidth &&
+    css`
+      width: 100%;
+    `}
 `;
 
-export const InputIcon = styled.div`
+export const InputIcon = styled.div<IconInputProps>`
   display: flex;
 
   width: 2rem;
-`;
 
-export const InputField = styled.div`
-display: flex;
-align - items: center;
-
-height: 100 %;
-width: 100 %;
+  ${(props) =>
+    !props.hasIcon &&
+    css`
+      & {
+        display: none;
+      }
+    `}
 `;

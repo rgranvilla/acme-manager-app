@@ -18,6 +18,7 @@ interface Props {
   name: string;
   label?: string;
   icon?: JSX.Element;
+  fullWidth?: boolean;
 }
 
 type InputProps = JSX.IntrinsicElements["input"] & Props;
@@ -28,6 +29,7 @@ export function Input({
   icon,
   type,
   autoComplete,
+  fullWidth = false,
   children,
   ...rest
 }: PropsWithChildren<InputProps>) {
@@ -79,8 +81,9 @@ export function Input({
         isFocused={isFocused}
         isErrored={!!error}
         hasIcon={!!icon}
+        fullWidth={fullWidth}
       >
-        {icon && <InputIcon>{icon}</InputIcon>}
+        <InputIcon hasIcon={!!icon}>{icon}</InputIcon>
         <input
           onFocus={handleInputFocus}
           onBlur={handleInputBlur}
