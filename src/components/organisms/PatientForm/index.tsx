@@ -5,13 +5,12 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { FormHandles, SubmitHandler } from "@unform/core";
 import { Form as UnForm } from "@unform/web";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import * as Yup from "yup";
 
 import { v4 as uuidV4 } from "uuid";
 
-import { toast } from "react-toastify";
 import { Button } from "../../atoms/Button";
 import { Input } from "../../atoms/Input";
 import { Title } from "../../atoms/Title";
@@ -30,6 +29,8 @@ interface PatientFormProps {
 
 export function PatientForm({ title }: PatientFormProps) {
   const formRef = useRef<FormHandles>(null);
+
+  const [error, setError] = useState("");
 
   const { addPatient, getPatientById } = usePatients();
 
@@ -71,7 +72,7 @@ export function PatientForm({ title }: PatientFormProps) {
       navigate("/list");
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
-        console.log(err);
+        setError(err.message);
       }
     }
   }
@@ -130,6 +131,7 @@ export function PatientForm({ title }: PatientFormProps) {
           </div>
         </FormContainer>
       </UnForm>
+      {error && <div>{error}</div>}
     </Container>
   );
 }
