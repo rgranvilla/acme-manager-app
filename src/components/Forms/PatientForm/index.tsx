@@ -70,7 +70,6 @@ export function CreatePatientForm({ onClose }: CreatePatientFrom) {
   const handleCreatePatient: SubmitHandler<CreatePatientFormData> = (
     values,
   ) => {
-    console.log({ ...values });
     try {
       dispatch(createPatient(values));
       dispatch(sortPatients());
