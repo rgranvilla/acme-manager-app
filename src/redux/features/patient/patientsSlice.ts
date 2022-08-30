@@ -1,18 +1,23 @@
 /* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { format } from "date-fns";
 import { v4 as uuidV4 } from "uuid";
-import { PatientDTO, PatientReducerDTO } from "../../../dtos/PatientsDTO";
+import {
+  NormalizedPatientDTO,
+  PatientReducerDTO,
+  StatusEnum,
+} from "../../../dtos/PatientsDTO";
 import type { RootState } from "../../app/hooks";
 
 export const patientsSlice = createSlice({
   name: "patients",
-  initialState: [] as PatientDTO[],
+  initialState: [] as NormalizedPatientDTO[],
   reducers: {
     createPatient: {
-      reducer: (state, action: PayloadAction<PatientReducerDTO>) => {
-        console.log(action.payload);
+      reducer: (state, action: PayloadAction<NormalizedPatientDTO>) => {
         state.push(action.payload);
+        state.map((patient) => console.log(patient));
       },
       prepare: ({
         patientName,
@@ -20,16 +25,18 @@ export const patientsSlice = createSlice({
         documentId,
         gender,
         address,
-      }: PatientDTO) => {
+      }: PatientReducerDTO) => {
         const id = uuidV4();
-        const status = "Ativo";
+        const status = StatusEnum.actived;
+        const normalizedGender = gender;
+        const normalizedDate = format(bornDate, "dd/MM/yyyy");
 
         const patient = {
           id,
           patientName,
-          bornDate,
+          bornDate: normalizedDate,
           documentId,
-          gender,
+          gender: normalizedGender,
           address,
           status,
         };
@@ -45,7 +52,7 @@ export const patientsSlice = createSlice({
 
       Object.assign(state, newState);
     },
-    updatePatient: (state, action: PayloadAction<PatientDTO>) => {
+    updatePatient: (state, action: PayloadAction<NormalizedPatientDTO>) => {
       const newState = state;
       const { id } = action.payload;
 

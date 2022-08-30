@@ -26,6 +26,16 @@ export interface PatientReducerDTO {
   address: string;
 }
 
+export interface NormalizedPatientDTO {
+  id: string;
+  patientName: string;
+  bornDate: string;
+  documentId: string;
+  gender: GenderEnum;
+  address: string;
+  status: StatusEnum;
+}
+
 export type PatientsDTO = PatientDTO[];
 
 export interface ColumnsPropsDTO {

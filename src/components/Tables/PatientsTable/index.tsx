@@ -14,13 +14,13 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { patientTableHeader } from "../../../constants/patientTableHeader";
 
-import { PatientDTO } from "../../../dtos/PatientsDTO";
+import { NormalizedPatientDTO } from "../../../dtos/PatientsDTO";
 import { useAppDispatch } from "../../../redux/app/hooks";
 import { store } from "../../../redux/app/store";
 import { selectAllPatients } from "../../../redux/features/patient/patientsSlice";
 
 export function PatientsTable(): ReactElement {
-  const [data, setData] = useState<PatientDTO[] | null>(
+  const [data, setData] = useState<NormalizedPatientDTO[] | null>(
     selectAllPatients(store.getState()),
   );
 
@@ -38,6 +38,9 @@ export function PatientsTable(): ReactElement {
 
   return (
     <Box h="100%" w="100%" p="4rem">
+      <button type="button" onClick={() => console.log(data)}>
+        console
+      </button>
       <TableContainer>
         <Table variant="striped" colorScheme="teal">
           <Thead>

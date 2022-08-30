@@ -1,5 +1,10 @@
+import { format } from "date-fns";
 import { v4 as uuidV4 } from "uuid";
-import { GenderEnum, PatientDTO, StatusEnum } from "../../../dtos/PatientsDTO";
+import {
+  GenderEnum,
+  NormalizedPatientDTO,
+  StatusEnum,
+} from "../../../dtos/PatientsDTO";
 
 import patientsReducer, {
   createPatient,
@@ -8,11 +13,11 @@ import patientsReducer, {
 } from "./patientsSlice";
 
 describe("patients reducer", () => {
-  const initialState: PatientDTO[] = [
+  const initialState: NormalizedPatientDTO[] = [
     {
       id: uuidV4(),
       patientName: "Vito Corleone",
-      bornDate: new Date(1891, 12, 7),
+      bornDate: format(new Date(1891, 12, 7), "dd/MM/yyyy"),
       documentId: "11111111111",
       gender: GenderEnum.male,
       address: "110 Longfellow Avenue, Staten Island, New York(NY) 10301",

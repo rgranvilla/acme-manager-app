@@ -75,7 +75,7 @@ export function CreatePatientForm({ onClose }: CreatePatientFrom) {
       dispatch(createPatient(values));
       dispatch(sortPatients());
 
-      navigate("/");
+      navigate("/list");
     } catch (err) {
       console.error(err);
     }
