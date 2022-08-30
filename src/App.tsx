@@ -1,31 +1,16 @@
-/* eslint-disable react/button-has-type */
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-import AppProvider from "./hooks";
-
-import { AddProfile } from "./pages/AddProfile";
-import { EditProfile } from "./pages/EditProfile";
-
-import { Home } from "./pages/Home";
-import { InexistentPage } from "./pages/InexistentPage";
-import { ListPatient } from "./pages/ListPatient";
-
-import { GlobalStyle } from "./styles/global";
+import { ListPatient } from "./components/Modulos/ListPatient";
+import { Home } from "./components/Pages/Home";
+import { InexistentPage } from "./components/Pages/InexistentPage";
 
 export function App() {
   return (
     <BrowserRouter>
-      <AppProvider>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/list" element={<ListPatient />} />
-          <Route path="/profile/add" element={<AddProfile />} />
-          <Route path="/profile/edit/:id" element={<EditProfile />} />
-          <Route path="*" element={<InexistentPage />} />
-        </Routes>
-      </AppProvider>
-
-      <GlobalStyle />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/list" element={<ListPatient />} />
+        <Route path="*" element={<InexistentPage />} />
+      </Routes>
     </BrowserRouter>
   );
 }
