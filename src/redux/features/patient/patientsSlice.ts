@@ -1,31 +1,32 @@
+/* eslint-disable no-console */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { v4 as uuidV4 } from "uuid";
-import { PatientDTO } from "../../../dtos/PatientsDTO";
+import { PatientDTO, PatientReducerDTO } from "../../../dtos/PatientsDTO";
 import type { RootState } from "../../app/hooks";
-
-export type PatientState = PatientDTO;
 
 export const patientsSlice = createSlice({
   name: "patients",
-  initialState: [] as PatientState[],
+  initialState: [] as PatientDTO[],
   reducers: {
     createPatient: {
-      reducer: (state, action: PayloadAction<Omit<PatientState, "status">>) => {
+      reducer: (state, action: PayloadAction<PatientReducerDTO>) => {
+        console.log(action.payload);
         state.push(action.payload);
       },
-      prepare: (
-        name: string,
-        bornDate: Date,
-        documentId: string,
-        gender: string,
-        address: string,
-      ) => {
+      prepare: ({
+        patientName,
+        bornDate,
+        documentId,
+        gender,
+        address,
+      }: PatientDTO) => {
         const id = uuidV4();
         const status = "Ativo";
 
         const patient = {
           id,
-          name,
+          patientName,
           bornDate,
           documentId,
           gender,
@@ -38,13 +39,13 @@ export const patientsSlice = createSlice({
         };
       },
     },
-    sortPatients: (state, action: PayloadAction<undefined>) => {
+    sortPatients: (state) => {
       const newState = state;
-      newState.sort((a, b) => a.name.localeCompare(b.name));
+      newState.sort((a, b) => a.patientName.localeCompare(b.patientName));
 
       Object.assign(state, newState);
     },
-    updatePatient: (state, action: PayloadAction<PatientState>) => {
+    updatePatient: (state, action: PayloadAction<PatientDTO>) => {
       const newState = state;
       const { id } = action.payload;
 
@@ -60,9 +61,14 @@ export const selectAllPatients = (state: RootState) => state.patients;
 export const selectPatientById = (state: RootState, id: string) => {
   return state.patients.find((entity) => entity.id === id);
 };
-export const selectPatientsFilterByName = (state: RootState, name: string) => {
+export const selectPatientsFilterByName = (
+  state: RootState,
+  patientName: string,
+) => {
   const filteredPatients = state.patients.filter((patient) =>
-    patient.name.toLocaleLowerCase().includes(name.toLocaleLowerCase()),
+    patient.patientName
+      .toLocaleLowerCase()
+      .includes(patientName.toLocaleLowerCase()),
   );
 
   if (filteredPatients) return filteredPatients;

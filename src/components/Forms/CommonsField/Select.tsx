@@ -1,26 +1,30 @@
-/* eslint-disable react/jsx-props-no-spreading */
+import { forwardRef, ForwardRefRenderFunction } from "react";
 import {
   FormControl,
   FormLabel,
   Select as ChakraSelect,
   SelectProps as ChakraSelectProps,
 } from "@chakra-ui/react";
-import { useRef } from "react";
+import { FieldError } from "react-hook-form";
 
 interface SelectProps extends ChakraSelectProps {
-  name: string;
+  name?: string;
   label?: string;
   isRequired?: boolean;
+  error?: FieldError;
 }
 
-export function Select({ name, label, isRequired, ...rest }: SelectProps) {
-  const selectRef = useRef<HTMLSelectElement>(null);
-
+const SelectBase: ForwardRefRenderFunction<HTMLSelectElement, SelectProps> = (
+  { name, label, isRequired, ...rest }: SelectProps,
+  ref,
+) => {
   return (
     <FormControl isRequired={isRequired}>
       {!!label && <FormLabel htmlFor={name}>{label}</FormLabel>}
 
-      <ChakraSelect name={name} id={name} {...rest} />
+      <ChakraSelect name={name} id={name} ref={ref} {...rest} />
     </FormControl>
   );
-}
+};
+
+export const Select = forwardRef(SelectBase);

@@ -1,5 +1,10 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
+/* eslint-disable no-console */
 import { useNavigate } from "react-router-dom";
+
+// forms and validation
 import {
+  Box,
   Button,
   Divider,
   Flex,
@@ -9,44 +14,75 @@ import {
   ModalHeader,
 } from "@chakra-ui/react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 
+// reducers react-toolkit
 import {
   createPatient,
   sortPatients,
 } from "../../../redux/features/patient/patientsSlice";
 import { useAppDispatch } from "../../../redux/app/hooks";
 
+// inputs and selectors
 import { Input } from "../CommonsField/Input";
 import { Select } from "../CommonsField/Select";
 
-interface FormData {
-  name: string;
+// interfaces
+enum GenderEnum {
+  male = "Masculino",
+  female = "Feminino",
+}
+interface CreatePatientFormData {
+  patientName: string;
   bornDate: Date;
   documentId: string;
-  gender: "Masculino" | "Feminino";
+  gender: GenderEnum;
   address: string;
 }
-
 interface CreatePatientFrom {
   onClose: () => void;
 }
 
+// yup schema validation
+const createPatientFormSchema = yup.object().shape({
+  patientName: yup.string().required("Nome completo do paciente é obrigarório"),
+  bornDate: yup.date().required("Data de nascimento do paciente é obrigatória"),
+  documentId: yup.string().required("O CPF do paciente é obrigatório"),
+  gender: yup
+    .string()
+    .oneOf(["Masculino", "Feminino"])
+    .required("É necessário selecionar um gênero"),
+  address: yup.string(),
+});
+
+// MAIN CODE
 export function CreatePatientForm({ onClose }: CreatePatientFrom) {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  function create(data: FormData): void {
-    const { name, bornDate, documentId, gender, address } = data;
+  const { register, handleSubmit, formState } = useForm<CreatePatientFormData>({
+    resolver: yupResolver(createPatientFormSchema),
+  });
 
-    dispatch(createPatient(name, bornDate, documentId, gender, address));
-    dispatch(sortPatients());
-  }
+  const { errors } = formState;
 
-  const handleSubmit = () => {
-    // TODO
+  const handleCreatePatient: SubmitHandler<CreatePatientFormData> = (
+    values,
+  ) => {
+    console.log({ ...values });
+    try {
+      dispatch(createPatient(values));
+      dispatch(sortPatients());
+
+      navigate("/");
+    } catch (err) {
+      console.error(err);
+    }
   };
+
   return (
-    <>
+    <Box as="form" onSubmit={handleSubmit(handleCreatePatient)}>
       <ModalHeader>Inserir Paciente</ModalHeader>
       <ModalCloseButton />
 
@@ -55,46 +91,51 @@ export function CreatePatientForm({ onClose }: CreatePatientFrom) {
       <ModalBody>
         <Flex gap="1rem" pb="0.75rem" pt="1rem">
           <Input
-            name="name"
             label="Nome"
             type="text"
             isRequired
             placeholder="digite o nome completo..."
+            error={errors.patientName}
+            {...register("patientName")}
           />
           <Input
-            name="documentId"
             label="CPF"
             type="text"
             isRequired
             placeholder="digite o cpf..."
+            error={errors.documentId}
+            {...register("documentId")}
           />
         </Flex>
 
         <Flex gap="1rem" pb="0.75rem">
           <Select
-            name="gender"
             label="Gênero"
             isRequired
             placeholder="selecione o sexo..."
+            error={errors.gender}
+            {...register("gender")}
           >
-            <option value="female">Feminino</option>
-            <option value="male">Masculino</option>
+            <option value={GenderEnum.female}>Feminino</option>
+            <option value={GenderEnum.male}>Masculino</option>
           </Select>
 
           <Input
-            name="bornDate"
             label="Data de nascimento"
             type="date"
             isRequired
+            error={errors.bornDate}
+            {...register("bornDate")}
           />
         </Flex>
 
         <Flex pb="1.25rem">
           <Input
-            name="address"
             label="Endereço"
             type="text"
             placeholder="digite o endereço ..."
+            error={errors.address}
+            {...register("address")}
           />
         </Flex>
       </ModalBody>
@@ -102,13 +143,18 @@ export function CreatePatientForm({ onClose }: CreatePatientFrom) {
       <Divider />
 
       <ModalFooter>
-        <Button type="submit" colorScheme="teal" mr={3}>
+        <Button
+          type="submit"
+          colorScheme="teal"
+          mr={3}
+          isLoading={formState.isSubmitting}
+        >
           Salvar
         </Button>
         <Button variant="ghost" onClick={onClose}>
           Cancelar
         </Button>
       </ModalFooter>
-    </>
+    </Box>
   );
 }

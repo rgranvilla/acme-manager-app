@@ -49,7 +49,15 @@ export function PatientsTable(): ReactElement {
           </Thead>
           <Tbody>
             {data?.map(
-              ({ id, name, bornDate, documentId, address, gender, status }) => {
+              ({
+                id,
+                patientName,
+                bornDate,
+                documentId,
+                address,
+                gender,
+                status,
+              }) => {
                 return (
                   <Tr key={id}>
                     <Td>
@@ -64,7 +72,7 @@ export function PatientsTable(): ReactElement {
                         />
                       )}
                     </Td>
-                    <Td>{name}</Td>
+                    <Td>{patientName}</Td>
                     <Td>{bornDate.toString()}</Td>
                     <Td isNumeric>{documentId}</Td>
                     <Td>{gender}</Td>

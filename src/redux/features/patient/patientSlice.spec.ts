@@ -1,32 +1,30 @@
 import { v4 as uuidV4 } from "uuid";
-import { useAppDispatch } from "../../app/hooks";
-import { store } from "../../app/store";
+import { GenderEnum, PatientDTO, StatusEnum } from "../../../dtos/PatientsDTO";
 
 import patientsReducer, {
   createPatient,
-  PatientState,
   sortPatients,
   updatePatient,
 } from "./patientsSlice";
 
 describe("patients reducer", () => {
-  const initialState: PatientState[] = [
+  const initialState: PatientDTO[] = [
     {
       id: uuidV4(),
-      name: "Vito Corleone",
+      patientName: "Vito Corleone",
       bornDate: new Date(1891, 12, 7),
       documentId: "11111111111",
-      gender: "male",
+      gender: GenderEnum.male,
       address: "110 Longfellow Avenue, Staten Island, New York(NY) 10301",
-      status: "Ativo",
+      status: StatusEnum.actived,
     },
   ];
 
   const newPatient = {
-    name: "John Doe",
+    patientName: "John Doe",
     bornDate: new Date(1990, 1, 1),
     documentId: "11111111111",
-    gender: "male",
+    gender: GenderEnum.male,
     address: "120 Baseline Rd, South Haven, Michigan(MI), 49090",
   };
 
@@ -35,27 +33,17 @@ describe("patients reducer", () => {
   });
 
   it("should handle create a new patient", () => {
-    const { name, bornDate, documentId, gender, address } = newPatient;
-
-    const actual = patientsReducer(
-      initialState,
-      createPatient(name, bornDate, documentId, gender, address),
-    );
+    const actual = patientsReducer(initialState, createPatient(newPatient));
     expect(actual.length).toBe(2);
     expect(actual[1]).toHaveProperty("id");
     expect(actual[1].status).toBe("Ativo");
   });
 
   it("should handle sort patient state", () => {
-    const { name, bornDate, documentId, gender, address } = newPatient;
-
-    let actual = patientsReducer(
-      initialState,
-      createPatient(name, bornDate, documentId, gender, address),
-    );
+    let actual = patientsReducer(initialState, createPatient(newPatient));
     actual = patientsReducer(actual, sortPatients());
 
-    expect(actual[0].name).toBe("John Doe");
+    expect(actual[0].patientName).toBe("John Doe");
   });
 
   it("should handle update a patient", () => {
@@ -64,7 +52,7 @@ describe("patients reducer", () => {
     const updateName = "Don Vito Corleone";
     const newData = {
       id,
-      name: updateName,
+      patientName: updateName,
       bornDate,
       documentId,
       gender,
@@ -74,6 +62,6 @@ describe("patients reducer", () => {
 
     const actual = patientsReducer(initialState, updatePatient(newData));
 
-    expect(actual[0].name).toBe("Don Vito Corleone");
+    expect(actual[0].patientName).toBe("Don Vito Corleone");
   });
 });

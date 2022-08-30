@@ -1,11 +1,29 @@
+export enum GenderEnum {
+  male = "Masculino",
+  female = "Feminino",
+}
+
+export enum StatusEnum {
+  actived = "Ativo",
+  inactived = "Inativado",
+}
+
 export interface PatientDTO {
   id?: string;
-  name: string;
+  patientName: string;
   bornDate: Date;
   documentId: string;
-  gender: string;
+  gender: GenderEnum;
   address: string;
-  status?: "Ativo" | "Inativo" | undefined;
+  status?: StatusEnum | undefined;
+}
+
+export interface PatientReducerDTO {
+  patientName: string;
+  bornDate: Date;
+  documentId: string;
+  gender: GenderEnum;
+  address: string;
 }
 
 export type PatientsDTO = PatientDTO[];
