@@ -18,13 +18,20 @@ import { patientTableHeader } from "../../../constants/patientTableHeader";
 import { NormalizedPatientDTO } from "../../../dtos/PatientsDTO";
 import { useAppDispatch } from "../../../redux/app/hooks";
 import { store } from "../../../redux/app/store";
-import { selectAllPatients } from "../../../redux/features/patient/patientsSlice";
+import {
+  selectAllPatients,
+  selectPatientsFilterByName,
+} from "../../../redux/features/patient/patientsSlice";
 
 interface PatientsTableProps {
   refresh: boolean;
+  filter: string;
 }
 
-export function PatientsTable({ refresh }: PatientsTableProps): ReactElement {
+export function PatientsTable({
+  refresh,
+  filter,
+}: PatientsTableProps): ReactElement {
   const [data, setData] = useState<NormalizedPatientDTO[] | null>(
     selectAllPatients(store.getState()),
   );
@@ -37,9 +44,21 @@ export function PatientsTable({ refresh }: PatientsTableProps): ReactElement {
     setData(listAllPatients);
   };
 
+  const FilterData = () => {
+    const listFilteredPatients = selectPatientsFilterByName(
+      store.getState(),
+      filter,
+    );
+    setData(listFilteredPatients);
+  };
+
   useEffect(() => {
     ReloadData();
   }, [dispatch, refresh]);
+
+  useEffect(() => {
+    FilterData();
+  }, [FilterData]);
 
   const handleSelectPatient = (path: string) => {
     navigate(path);

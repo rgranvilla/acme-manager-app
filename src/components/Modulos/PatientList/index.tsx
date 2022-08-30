@@ -17,6 +17,12 @@ import { PatientsTable } from "../../Tables/PatientsTable";
 export function PatientList() {
   const [refresh, setRefresh] = useState<boolean>(false);
 
+  const [filter, setFilter] = useState<string>("");
+
+  const handleFilter = (value: string) => {
+    setFilter(value);
+  };
+
   return (
     <Flex h="100%" w="80%" ml="20%" direction="column">
       <Heading p="2rem" color="blue.400">
@@ -39,13 +45,17 @@ export function PatientList() {
                   <InputLeftElement pointerEvents="none">
                     <MdSearch color="gray.300" />
                   </InputLeftElement>
-                  <Input type="search" placeholder="buscar por nome..." />
+                  <Input
+                    type="search"
+                    placeholder="buscar por nome..."
+                    onChange={(e) => handleFilter(e.target.value)}
+                  />
                 </InputGroup>
               </Stack>
             </Flex>
           </FormControl>
           <Box h="100%" w="100%">
-            <PatientsTable refresh={refresh} />
+            <PatientsTable refresh={refresh} filter={filter} />
           </Box>
         </Flex>
       </Box>
