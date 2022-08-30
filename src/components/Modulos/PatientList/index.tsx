@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Flex,
   FormControl,
   Heading,
@@ -8,11 +9,14 @@ import {
   InputLeftElement,
   Stack,
 } from "@chakra-ui/react";
+import { useCallback, useState } from "react";
 
-import { MdSearch } from "react-icons/md";
+import { MdRefresh, MdSearch } from "react-icons/md";
 import { PatientsTable } from "../../Tables/PatientsTable";
 
 export function PatientList() {
+  const [refresh, setRefresh] = useState<boolean>(false);
+
   return (
     <Flex h="100%" w="80%" ml="20%" direction="column">
       <Heading p="2rem" color="blue.400">
@@ -27,6 +31,9 @@ export function PatientList() {
               alignItems="center"
               mr="4rem"
             >
+              <Button onClick={() => setRefresh(!refresh)}>
+                <MdRefresh />
+              </Button>
               <Stack w="20%" spacing={4}>
                 <InputGroup>
                   <InputLeftElement pointerEvents="none">
@@ -38,7 +45,7 @@ export function PatientList() {
             </Flex>
           </FormControl>
           <Box h="100%" w="100%">
-            <PatientsTable />
+            <PatientsTable refresh={refresh} />
           </Box>
         </Flex>
       </Box>

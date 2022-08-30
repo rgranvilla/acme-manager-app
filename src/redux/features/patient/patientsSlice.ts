@@ -17,7 +17,6 @@ export const patientsSlice = createSlice({
     createPatient: {
       reducer: (state, action: PayloadAction<NormalizedPatientDTO>) => {
         state.push(action.payload);
-        state.map((patient) => console.log(patient));
       },
       prepare: ({
         patientName,

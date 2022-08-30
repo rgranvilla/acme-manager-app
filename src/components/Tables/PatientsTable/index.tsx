@@ -8,6 +8,7 @@ import {
   Button,
   Td,
   Tbody,
+  Heading,
 } from "@chakra-ui/react";
 import { ReactElement, useEffect, useState } from "react";
 import { MdKeyboardArrowRight } from "react-icons/md";
@@ -19,7 +20,11 @@ import { useAppDispatch } from "../../../redux/app/hooks";
 import { store } from "../../../redux/app/store";
 import { selectAllPatients } from "../../../redux/features/patient/patientsSlice";
 
-export function PatientsTable(): ReactElement {
+interface PatientsTableProps {
+  refresh: boolean;
+}
+
+export function PatientsTable({ refresh }: PatientsTableProps): ReactElement {
   const [data, setData] = useState<NormalizedPatientDTO[] | null>(
     selectAllPatients(store.getState()),
   );
@@ -27,10 +32,14 @@ export function PatientsTable(): ReactElement {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  useEffect(() => {
+  const ReloadData = () => {
     const listAllPatients = selectAllPatients(store.getState());
     setData(listAllPatients);
-  }, [dispatch]);
+  };
+
+  useEffect(() => {
+    ReloadData();
+  }, [dispatch, refresh]);
 
   const handleSelectPatient = (path: string) => {
     navigate(path);
@@ -38,9 +47,6 @@ export function PatientsTable(): ReactElement {
 
   return (
     <Box h="100%" w="100%" p="4rem">
-      <button type="button" onClick={() => console.log(data)}>
-        console
-      </button>
       <TableContainer>
         <Table variant="striped" colorScheme="teal">
           <Thead>
