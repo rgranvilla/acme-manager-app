@@ -110,7 +110,7 @@ export function EditPatientForm({
 
   return (
     <Box as="form" onSubmit={handleSubmit(handleEditPatient)}>
-      <ModalHeader>Inserir Paciente</ModalHeader>
+      <ModalHeader>Editar dados do paciente</ModalHeader>
       <ModalCloseButton />
 
       <Divider />

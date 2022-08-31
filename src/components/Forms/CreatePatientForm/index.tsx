@@ -48,7 +48,7 @@ interface CreatePatientFrom {
 const createPatientFormSchema = yup.object().shape({
   patientName: yup.string().required("Nome completo do paciente é obrigarório"),
   bornDate: yup.date().required("Data de nascimento do paciente é obrigatória"),
-  documentId: yup.string().required("O CPF do paciente é obrigatório"),
+  documentId: yup.string().max(11).required("O CPF do paciente é obrigatório"),
   gender: yup
     .string()
     .oneOf(["Masculino", "Feminino"])
