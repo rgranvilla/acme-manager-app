@@ -9,8 +9,9 @@ import {
   Td,
   Tbody,
   Heading,
+  useDisclosure,
 } from "@chakra-ui/react";
-import { ReactElement, useEffect, useState } from "react";
+import { ReactElement, useCallback, useEffect, useState } from "react";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { patientTableHeader } from "../../../constants/patientTableHeader";
@@ -22,6 +23,7 @@ import {
   selectAllPatients,
   selectPatientsFilterByName,
 } from "../../../redux/features/patient/patientsSlice";
+import { EditPatientModal } from "../../Modals/EditPatientModal";
 
 interface PatientsTableProps {
   refresh: boolean;
@@ -36,21 +38,25 @@ export function PatientsTable({
     selectAllPatients(store.getState()),
   );
 
+  const [patientId, setPatientId] = useState<string>("");
+
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const ReloadData = () => {
     const listAllPatients = selectAllPatients(store.getState());
     setData(listAllPatients);
   };
 
-  const FilterData = () => {
+  const FilterData = useCallback(() => {
     const listFilteredPatients = selectPatientsFilterByName(
       store.getState(),
       filter,
     );
     setData(listFilteredPatients);
-  };
+  }, [filter]);
 
   useEffect(() => {
     ReloadData();
@@ -60,14 +66,19 @@ export function PatientsTable({
     FilterData();
   }, [FilterData]);
 
-  const handleSelectPatient = (path: string) => {
-    navigate(path);
+  const handleSelectPatient = (id: string) => {
+    setPatientId(id);
+    onOpen();
+  };
+
+  const onSuccessUpdate = () => {
+    ReloadData();
   };
 
   return (
     <Box h="100%" w="100%" p="4rem">
       <TableContainer>
-        <Table variant="striped" colorScheme="teal">
+        <Table variant="striped" colorScheme="gray">
           <Thead>
             <Tr>
               {patientTableHeader.columns.map(({ id, label }) => {
@@ -87,17 +98,23 @@ export function PatientsTable({
                 status,
               }) => {
                 return (
-                  <Tr key={id}>
+                  <Tr key={id} h="fit-content">
                     <Td>
                       {id && (
                         <Button
-                          rightIcon={<MdKeyboardArrowRight size={24} />}
-                          colorScheme="teal"
                           variant="outline"
-                          onClick={() =>
-                            handleSelectPatient(`/profile/edit/${id}`)
-                          }
-                        />
+                          onClick={() => handleSelectPatient(id)}
+                          size="sm"
+                          bg="linkedin.300"
+                          border="0"
+                          color="white"
+                          _hover={{
+                            opacity: "0.8",
+                          }}
+                          p="0.5rem"
+                        >
+                          Editar
+                        </Button>
                       )}
                     </Td>
                     <Td>{patientName}</Td>
@@ -113,6 +130,12 @@ export function PatientsTable({
           </Tbody>
         </Table>
       </TableContainer>
+      <EditPatientModal
+        onClose={onClose}
+        isOpen={isOpen}
+        patientId={patientId}
+        onSuccess={() => onSuccessUpdate()}
+      />
     </Box>
   );
 }

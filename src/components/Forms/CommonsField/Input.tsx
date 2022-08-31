@@ -1,6 +1,7 @@
 import { forwardRef, ForwardRefRenderFunction } from "react";
 import {
   FormControl,
+  FormErrorMessage,
   FormLabel,
   Input as ChakraInput,
   InputProps as ChakraInputProps,

@@ -1,15 +1,19 @@
 import { Modal, ModalOverlay, ModalContent } from "@chakra-ui/react";
-import { CreatePatientForm } from "../../Forms/CreatePatientForm";
+import { EditPatientForm } from "../../Forms/EditPatientForm";
 
-interface CreatePatientModalProps {
+interface EditPatientModalProps {
   isOpen: boolean;
   onClose: () => void;
+  patientId: string;
+  onSuccess: () => void;
 }
 
-export function CreatePatientModal({
+export function EditPatientModal({
   isOpen,
   onClose,
-}: CreatePatientModalProps) {
+  patientId,
+  onSuccess,
+}: EditPatientModalProps) {
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="xl" isCentered>
       <ModalOverlay
@@ -17,7 +21,11 @@ export function CreatePatientModal({
         backdropFilter="blur(10px) hue-rotate(90deg)"
       />
       <ModalContent>
-        <CreatePatientForm onClose={onClose} />
+        <EditPatientForm
+          onClose={onClose}
+          patientId={patientId}
+          onSuccess={onSuccess}
+        />
       </ModalContent>
     </Modal>
   );
