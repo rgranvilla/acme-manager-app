@@ -58,8 +58,6 @@ export const patientsSlice = createSlice({
       const index = newState.findIndex((entity) => entity.id === id);
       newState.splice(index, 1, action.payload);
 
-      console.log(action.payload);
-
       Object.assign(state, newState);
     },
   },

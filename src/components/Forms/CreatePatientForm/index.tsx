@@ -33,13 +33,13 @@ enum GenderEnum {
   male = "Masculino",
   female = "Feminino",
 }
-interface CreatePatientFormData {
+type CreatePatientFormData = {
   patientName: string;
   bornDate: Date;
   documentId: string;
   gender: GenderEnum;
   address: string;
-}
+};
 interface CreatePatientFrom {
   onClose: () => void;
 }
@@ -48,7 +48,7 @@ interface CreatePatientFrom {
 const createPatientFormSchema = yup.object().shape({
   patientName: yup.string().required("Nome completo do paciente é obrigarório"),
   bornDate: yup.date().required("Data de nascimento do paciente é obrigatória"),
-  documentId: yup.string().max(11).required("O CPF do paciente é obrigatório"),
+  // documentId: yup.string().required("O CPF do paciente é obrigatório"),
   gender: yup
     .string()
     .oneOf(["Masculino", "Feminino"])
@@ -70,8 +70,14 @@ export function CreatePatientForm({ onClose }: CreatePatientFrom) {
   const handleCreatePatient: SubmitHandler<CreatePatientFormData> = (
     values,
   ) => {
+    const { documentId } = values;
+    const normalizedValeus = {
+      ...values,
+      documentId: documentId.replace(/\d/g, ""),
+    };
+
     try {
-      dispatch(createPatient(values));
+      dispatch(createPatient(normalizedValeus));
       dispatch(sortPatients());
 
       onClose();
@@ -99,6 +105,7 @@ export function CreatePatientForm({ onClose }: CreatePatientFrom) {
             {...register("patientName")}
           />
           <Input
+            mask="000.000.000-00"
             label="CPF"
             type="text"
             isRequired

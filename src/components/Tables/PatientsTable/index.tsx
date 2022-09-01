@@ -14,6 +14,8 @@ import {
 import { ReactElement, useCallback, useEffect, useState } from "react";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import { IMask } from "react-imask";
+
 import { patientTableHeader } from "../../../constants/patientTableHeader";
 
 import { NormalizedPatientDTO } from "../../../dtos/PatientsDTO";
@@ -97,6 +99,11 @@ export function PatientsTable({
                 gender,
                 status,
               }) => {
+                const maskedCpf = IMask.createMask({
+                  mask: "000.000.000-00",
+                });
+
+                maskedCpf.resolve(documentId);
                 return (
                   <Tr key={id} h="fit-content">
                     <Td>
@@ -119,7 +126,7 @@ export function PatientsTable({
                     </Td>
                     <Td>{patientName}</Td>
                     <Td>{bornDate.toString()}</Td>
-                    <Td isNumeric>{documentId}</Td>
+                    <Td>{maskedCpf.value}</Td>
                     <Td>{gender}</Td>
                     <Td>{address}</Td>
                     <Td>{status}</Td>

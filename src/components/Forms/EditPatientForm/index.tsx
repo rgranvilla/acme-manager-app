@@ -16,7 +16,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 // reducers react-toolkit
-import { format, parse } from "date-fns";
+import { format } from "date-fns";
 import { useEffect, useState } from "react";
 import {
   updatePatient,
@@ -91,12 +91,13 @@ export function EditPatientForm({
   const { errors } = formState;
 
   const handleEditPatient: SubmitHandler<EditPatientFormData> = (values) => {
-    const { bornDate } = values;
-
+    const { bornDate, documentId } = values;
     const normalizedValues = {
       ...values,
       bornDate: format(bornDate, "dd/MM/yyyy").toString(),
+      documentId: documentId.replace(/\D/g, ""),
     };
+
     try {
       dispatch(updatePatient(normalizedValues));
       dispatch(sortPatients());
@@ -151,6 +152,7 @@ export function EditPatientForm({
             {...register("patientName")}
           />
           <Input
+            mask="000.000.000-00"
             label="CPF"
             type="text"
             isRequired
@@ -158,6 +160,7 @@ export function EditPatientForm({
             defaultValue={activePatient?.documentId}
             error={errors.documentId}
             {...register("documentId")}
+            setDefaultValue={activePatient?.documentId}
           />
         </Flex>
 
