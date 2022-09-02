@@ -55,7 +55,7 @@ const createPatientFormSchema = yup.object().shape({
   patientName: yup
     .string()
     .matches(
-      /^[A-Z][a-zA-Z]{3,}(?: [A-Z][a-zA-Z]*){1,2}$/,
+      /^[A-Z][a-zA-Z\u00C0-\u00FF]{0,}(?: [A-Z][a-zA-Z\u00C0-\u00FF]*){1,2}$/,
       "O campo deve ter nome e sobrenome",
     )
     .required("Nome completo do paciente é obrigarório"),
@@ -83,9 +83,15 @@ export function EditPatientForm({
 }: CreatePatientFrom) {
   const dispatch = useAppDispatch();
 
-  const [normalizedDate, setNormalizedDate] = useState<string>("");
-
   const activePatient = selectPatientById(store.getState(), patientId);
+  const [normalizedDate, setNormalizedDate] = useState(() => {
+    if (activePatient) {
+      const activeBornDate = activePatient.bornDate.split("/");
+      const [day, month, year] = activeBornDate;
+      return `${year}-${month}-${day}`;
+    }
+    return "";
+  });
 
   useEffect(() => {
     if (activePatient) {
