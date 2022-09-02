@@ -47,12 +47,22 @@ interface CreatePatientFrom {
 
 // yup schema validation
 const createPatientFormSchema = yup.object().shape({
-  patientName: yup.string().required("Nome completo do paciente é obrigarório"),
+  patientName: yup
+    .string()
+    .matches(
+      /^[A-Z][a-zA-Z]{3,}(?: [A-Z][a-zA-Z]*){1,2}$/,
+      "O campo deve ter nome e sobrenome",
+    )
+    .required("Nome completo do paciente é obrigarório"),
   bornDate: yup.date().required("Data de nascimento do paciente é obrigatória"),
-  // documentId: yup.string().required("O CPF do paciente é obrigatório"),
+  documentId: yup
+    .string()
+    .min(14, "CPF deve ter exatamente 11 dígitos") // 11 dígitos + 3 separadores
+    .max(14, "CPF deve ter exatamente 11 dígitos")
+    .required("O CPF do paciente é obrigatório"),
   gender: yup
     .string()
-    .oneOf(["Masculino", "Feminino"])
+    .oneOf(["Masculino", "Feminino"], "É necessário selecionar um gênero")
     .required("É necessário selecionar um gênero"),
   address: yup.string(),
 });

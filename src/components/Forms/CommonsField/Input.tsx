@@ -1,13 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {
-  forwardRef,
-  ForwardRefRenderFunction,
-  useEffect,
-  useState,
-} from "react";
+import { forwardRef, ForwardRefRenderFunction, useEffect } from "react";
 import {
   FormControl,
   FormLabel,
+  FormHelperText,
   Input as ChakraInput,
   InputProps as ChakraInputProps,
   useMergeRefs,
@@ -24,7 +20,7 @@ interface InputProps extends ChakraInputProps {
 }
 
 const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
-  { name, label, mask = "", setDefaultValue = "", ...rest }: InputProps,
+  { name, label, mask = "", error, setDefaultValue = "", ...rest }: InputProps,
   ref,
 ) => {
   const { ref: iMaskRef, setValue } = useIMask({ mask });
@@ -34,10 +30,11 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
   }, [setDefaultValue, setValue]);
 
   return (
-    <FormControl>
+    <FormControl isInvalid={!!error}>
       {!!label && <FormLabel htmlFor={name}>{label}</FormLabel>}
 
       <ChakraInput name={name} id={name} ref={refs} {...rest} />
+      <FormHelperText>{error?.message}</FormHelperText>
     </FormControl>
   );
 };
