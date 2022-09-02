@@ -26,6 +26,7 @@ import {
   selectPatientsFilterByName,
 } from "../../../redux/features/patient/patientsSlice";
 import { EditPatientModal } from "../../Modals/EditPatientModal";
+import { inputMask } from "../../../constants/maskPatterns";
 
 interface PatientsTableProps {
   refresh: boolean;
@@ -100,7 +101,7 @@ export function PatientsTable({
                 status,
               }) => {
                 const maskedCpf = IMask.createMask({
-                  mask: "000.000.000-00",
+                  mask: inputMask.cpf,
                 });
 
                 maskedCpf.resolve(documentId);

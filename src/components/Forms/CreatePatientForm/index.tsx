@@ -27,6 +27,7 @@ import { useAppDispatch } from "../../../redux/app/hooks";
 // inputs and selectors
 import { Input } from "../CommonsField/Input";
 import { Select } from "../CommonsField/Select";
+import { inputMask } from "../../../constants/maskPatterns";
 
 // interfaces
 enum GenderEnum {
@@ -105,7 +106,7 @@ export function CreatePatientForm({ onClose }: CreatePatientFrom) {
             {...register("patientName")}
           />
           <Input
-            mask="000.000.000-00"
+            mask={inputMask.cpf}
             label="CPF"
             type="text"
             isRequired

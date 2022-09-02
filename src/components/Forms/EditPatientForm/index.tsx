@@ -30,6 +30,7 @@ import { store } from "../../../redux/app/store";
 import { Input } from "../CommonsField/Input";
 import { Select } from "../CommonsField/Select";
 import { StatusEnum } from "../../../dtos/PatientsDTO";
+import { inputMask } from "../../../constants/maskPatterns";
 
 enum GenderEnum {
   male = "Masculino",
@@ -152,7 +153,7 @@ export function EditPatientForm({
             {...register("patientName")}
           />
           <Input
-            mask="000.000.000-00"
+            mask={inputMask.cpf}
             label="CPF"
             type="text"
             isRequired
