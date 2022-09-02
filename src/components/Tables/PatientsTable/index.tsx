@@ -44,7 +44,6 @@ export function PatientsTable({
   const [patientId, setPatientId] = useState<string>("");
 
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -80,7 +79,7 @@ export function PatientsTable({
 
   return (
     <Box h="100%" w="100%" p="4rem">
-      <TableContainer>
+      <TableContainer overflowX="hidden">
         <Table variant="striped" colorScheme="gray">
           <Thead>
             <Tr>
@@ -129,7 +128,7 @@ export function PatientsTable({
                     <Td>{bornDate.toString()}</Td>
                     <Td>{maskedCpf.value}</Td>
                     <Td>{gender}</Td>
-                    <Td>{address}</Td>
+                    <Td whiteSpace="pre-wrap">{address}</Td>
                     <Td>{status}</Td>
                   </Tr>
                 );
