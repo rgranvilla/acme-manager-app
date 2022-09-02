@@ -48,13 +48,7 @@ interface CreatePatientFrom {
 
 // yup schema validation
 const createPatientFormSchema = yup.object().shape({
-  patientName: yup
-    .string()
-    .matches(
-      /^[A-Z][a-zA-Z\u00C0-\u00FF]{0,}(?: [A-Z][a-zA-Z\u00C0-\u00FF]*){1,2}$/,
-      "O campo deve ter nome e sobrenome",
-    )
-    .required("Nome completo do paciente é obrigarório"),
+  patientName: yup.string().required("Nome completo do paciente é obrigarório"),
   bornDate: yup.date().required("Data de nascimento do paciente é obrigatória"),
   documentId: yup
     .string()

@@ -31,6 +31,7 @@ import { Input } from "../CommonsField/Input";
 import { Select } from "../CommonsField/Select";
 import { StatusEnum } from "../../../dtos/PatientsDTO";
 import { inputMask } from "../../../constants/maskPatterns";
+import { isValidCPF } from "../../../utils/validators/cpfValidator";
 
 enum GenderEnum {
   male = "Masculino",
@@ -52,18 +53,13 @@ interface CreatePatientFrom {
 }
 
 const createPatientFormSchema = yup.object().shape({
-  patientName: yup
-    .string()
-    .matches(
-      /^[A-Z][a-zA-Z\u00C0-\u00FF]{0,}(?: [A-Z][a-zA-Z\u00C0-\u00FF]*){1,2}$/,
-      "O campo deve ter nome e sobrenome",
-    )
-    .required("Nome completo do paciente é obrigarório"),
+  patientName: yup.string().required("Nome completo do paciente é obrigarório"),
   bornDate: yup.date().required("Data de nascimento do paciente é obrigatória"),
   documentId: yup
     .string()
     .min(14, "CPF deve ter exatamente 11 dígitos") // 11 dígitos + 3 separadores
     .max(14, "CPF deve ter exatamente 11 dígitos")
+    .test("CPF", "CPF inválido", (value) => (value ? isValidCPF(value) : false))
     .required("O CPF do paciente é obrigatório"),
   gender: yup
     .string()
