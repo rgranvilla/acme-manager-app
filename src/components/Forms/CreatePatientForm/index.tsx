@@ -28,6 +28,7 @@ import { useAppDispatch } from "../../../redux/app/hooks";
 import { Input } from "../CommonsField/Input";
 import { Select } from "../CommonsField/Select";
 import { inputMask } from "../../../constants/maskPatterns";
+import { isValidCPF } from "../../../utils/validators/cpfValidator";
 
 // interfaces
 enum GenderEnum {
@@ -59,6 +60,7 @@ const createPatientFormSchema = yup.object().shape({
     .string()
     .min(14, "CPF deve ter exatamente 11 dígitos") // 11 dígitos + 3 separadores
     .max(14, "CPF deve ter exatamente 11 dígitos")
+    .test("CPF", "CPF inválido", (value) => (value ? isValidCPF(value) : false))
     .required("O CPF do paciente é obrigatório"),
   gender: yup
     .string()

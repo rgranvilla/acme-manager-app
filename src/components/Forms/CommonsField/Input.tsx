@@ -8,7 +8,7 @@ import {
   InputProps as ChakraInputProps,
   useMergeRefs,
 } from "@chakra-ui/react";
-import { FieldError, useForm } from "react-hook-form";
+import { FieldError } from "react-hook-form";
 import { useIMask } from "react-imask";
 
 interface InputProps extends ChakraInputProps {
